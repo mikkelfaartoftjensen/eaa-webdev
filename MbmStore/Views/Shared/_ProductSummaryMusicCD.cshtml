@@ -1,0 +1,30 @@
+﻿@model MbmStore.Models.MusicCD
+@using MbmStore.Infrastructure
+@using MbmStore.Models
+<div>
+    <strong>Album:</strong> @Model.Title<br />
+    <strong>Artist:</strong> @Model.Artist<br />
+    <strong>Price:</strong> @Model.Price<br />
+    <strong>Publisher:</strong> @Model.Label (@Model.Released)<br /> <br />
+    <img src="Images/@Model.ImageUrl" />
+</div>
+<div>
+    <strong>Tracks:</strong>
+
+    <ol>
+
+        @foreach (Track track in Model.Tracks) 
+        {
+            <li>@track.Title (@track.Composer) @track.Length.Minutes:@track.Length.Seconds </li>
+        }
+
+    </ol>
+    <p><strong>Total playing time</strong>: @Model.GetPlayingTime().Minutes:@Model.GetPlayingTime().Seconds</p>
+</div>
+
+<td style="vertical-align:bottom;padding-left:50px;">
+    <div>
+        @await Html.PartialAsync("_AddToCartButton", (Product)Model)
+
+    </div>
+</td>
